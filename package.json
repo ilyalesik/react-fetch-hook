@@ -1,6 +1,6 @@
 {
   "name": "react-fetch-hook",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React fetch hook",
   "main": "./dist/index.js",
   "scripts": {
@@ -8,7 +8,10 @@
     "flow:check": "flow check",
     "test": "echo \"Error: no test specified\" && exit 0",
     "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status",
-    "build": "cross-env BABEL_ENV=production babel src --out-dir dist"
+    "build": "npm run build:clean && npm run build:lib && npm run build:flow",
+    "build:clean": "rimraf dist",
+    "build:lib": "cross-env BABEL_ENV=production babel src --out-dir dist --ignore '**/__tests__/**'",
+    "build:flow": "flow-copy-source -v -i '**/__tests__/**' src dist"
   },
   "files": [
     "dist",
@@ -43,9 +46,12 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-plugin-react-flow-props-to-prop-types": "^0.15.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "cross-env": "^5.2.0",
     "flow-bin": "^0.89.0",
+    "flow-copy-source": "^2.0.2",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.15.3"
+    "prettier": "^1.15.3",
+    "rimraf": "^2.6.2"
   }
 }
