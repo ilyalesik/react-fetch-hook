@@ -6,8 +6,13 @@
   "scripts": {
     "flow": "flow",
     "flow:check": "flow check",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status"
   },
+  "pre-commit": [
+    "prettier",
+    "flow:check"
+  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/ilyalesik/react-fetch-hook.git"
@@ -32,6 +37,8 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "babel-plugin-react-flow-props-to-prop-types": "^0.15.0",
-    "flow-bin": "^0.89.0"
+    "flow-bin": "^0.89.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.15.3"
   }
 }
