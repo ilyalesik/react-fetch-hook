@@ -27,6 +27,11 @@
     "react": ">=16.6.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-react-flow-props-to-prop-types": "^0.15.0",
     "flow-bin": "^0.89.0"
   }
 }
