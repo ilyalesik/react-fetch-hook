@@ -1,0 +1,24 @@
+{
+  "name": "react-fetch-hook",
+  "version": "1.0.0",
+  "description": "React fetch hook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ilyalesik/react-fetch-hook.git"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "fetch"
+  ],
+  "author": "Ilya Lesik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ilyalesik/react-fetch-hook/issues"
+  },
+  "homepage": "https://github.com/ilyalesik/react-fetch-hook#readme"
+}
