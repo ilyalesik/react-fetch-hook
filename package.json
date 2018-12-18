@@ -4,6 +4,8 @@
   "description": "React fetch hook",
   "main": "index.js",
   "scripts": {
+    "flow": "flow",
+    "flow:check": "flow check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +22,11 @@
   "bugs": {
     "url": "https://github.com/ilyalesik/react-fetch-hook/issues"
   },
-  "homepage": "https://github.com/ilyalesik/react-fetch-hook#readme"
+  "homepage": "https://github.com/ilyalesik/react-fetch-hook#readme",
+  "peerDependencies": {
+    "react": ">=16.6.0"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.89.0"
+  }
 }
