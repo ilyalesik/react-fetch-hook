@@ -12,15 +12,16 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com");
-            return <div>{result.isLoading}</div>;
+            return result.data && result.data.data;
         };
 
-        const { rerender } = render(<Component />);
+        const { container, rerender } = render(<Component />);
 
         await wait(() => {
             rerender(<Component />);
 
             expect(fetch.mock.calls.length).toEqual(1);
+            expect(container).toHaveTextContent("12345");
             expect(fetch.mock.calls[0][0]).toEqual("https://google.com");
         });
     });
@@ -58,18 +59,22 @@ describe("useFetch", () => {
                 "Content-Type": "application/json; charset=utf-8"
             }
         };
+        const formatterMock = jest.fn();
+        formatterMock.mockReturnValueOnce("xxx");
 
         const Component = () => {
-            const result = useFetch("https://google.com", { ...options, formatter: response => response.text() });
-            return <div>{result.isLoading}</div>;
+            const result = useFetch("https://google.com", { ...options, formatter: formatterMock });
+            return result.data;
         };
 
-        const { rerender } = render(<Component />);
+        const { container, rerender } = render(<Component />);
 
         await wait(() => {
             rerender(<Component />);
 
             expect(fetch.mock.calls.length).toEqual(1);
+            expect(formatterMock.mock.calls.length).toEqual(1);
+            expect(container).toHaveTextContent("xxx");
             expect(fetch.mock.calls[0][0]).toEqual("https://google.com");
             expect(fetch.mock.calls[0][1]).toMatchObject({ ...options });
         });

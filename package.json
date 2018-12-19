@@ -1,6 +1,6 @@
 {
   "name": "react-fetch-hook",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "React fetch hook",
   "main": "./dist/index.js",
   "scripts": {
@@ -14,9 +14,7 @@
     "build:flow": "flow-copy-source -v -i '**/__tests__/**' src dist"
   },
   "jest": {
-    "setupFiles": [
-      "./setupTests.js"
-    ],
+    "setupTestFrameworkScriptFile": "./setupTests.js",
     "moduleNameMapper": {
       "\\.(svg|png)$": "<rootDir>/__mocks__/fileMock.js"
     }
