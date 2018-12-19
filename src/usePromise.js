@@ -1,10 +1,23 @@
 // @flow
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 type TUsePromiseResult<T> = {
     data: ?T,
     isLoading: boolean,
     error: mixed
+};
+
+export const flattenInput = (...inputs: $ReadOnlyArray<mixed>): $ReadOnlyArray<mixed> => {
+    return inputs.reduce((accumulator, input) => {
+        if (input instanceof Array) {
+            return [...accumulator, ...flattenInput(...input)];
+        }
+        if (input instanceof Object) {
+            const keys = Object.keys(input);
+            return [...accumulator, ...flattenInput(...keys.reduce((a, k) => [...a, k, input[k]], []))];
+        }
+        return [...accumulator, input];
+    }, []);
 };
 
 export function usePromise<T, I: $ReadOnlyArray<mixed>>(
@@ -31,7 +44,7 @@ export function usePromise<T, I: $ReadOnlyArray<mixed>>(
             });
     };
 
-    useEffect(call, [...inputs]);
+    useEffect(call, [...flattenInput(inputs)]);
 
     return {
         data,
