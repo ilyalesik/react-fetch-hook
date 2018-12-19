@@ -11,11 +11,10 @@ export function useFetch(
     path: RequestInfo,
     options?: { ...RequestOptions, formatter?: Response => Promise<mixed> }
 ): TUseFetchResult {
+    const { formatter, ...fetchOptions } = options || {};
     const defaultFormatter = response => response.json();
     const fetchInstance = (path, options) => {
-        return fetch(path, options).then(
-            (options && typeof options.formatter === "function" && options.formatter) || defaultFormatter
-        );
+        return fetch(path, options).then((options && typeof formatter === "function" && formatter) || defaultFormatter);
     };
     return usePromise(fetchInstance, path, options);
 }
