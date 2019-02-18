@@ -1,5 +1,6 @@
 # react-fetch-hook
 
+[![Build Status](https://travis-ci.org/ilyalesik/react-fetch-hook.svg?branch=master)](https://travis-ci.org/ilyalesik/react-fetch-hook)
 [![npm version](https://img.shields.io/npm/v/react-fetch-hook.svg)](https://www.npmjs.com/package/react-fetch-hook)
 [![npm downloads](https://img.shields.io/npm/dt/react-fetch-hook.svg)](https://www.npmjs.com/package/react-fetch-hook)
 
