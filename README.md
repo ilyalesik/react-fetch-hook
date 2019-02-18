@@ -1,5 +1,8 @@
 # react-fetch-hook
 
+[![npm version](https://img.shields.io/npm/v/react-fetch-hook.svg)](https://www.npmjs.com/package/react-fetch-hook)
+[![npm downloads](https://img.shields.io/npm/dt/react-fetch-hook.svg)](https://www.npmjs.com/package/react-fetch-hook)
+
 React hook, which allows you to conveniently work with *fetch*. Good Flow support.
 
 ## Installation
