@@ -11,7 +11,12 @@ export function useFetch<T>(
     path: RequestInfo,
     options?: { ...RequestOptions, formatter?: Response => Promise<T> }
 ): TUseFetchResult<T> {
-    const defaultFormatter = response => response.json();
+    const defaultFormatter = response => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.json();
+    };
     const fetchInstance = formatter => (path, options) => {
         return fetch(path, options).then((typeof formatter === "function" && formatter) || defaultFormatter);
     };

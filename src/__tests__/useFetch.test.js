@@ -79,4 +79,23 @@ describe("useFetch", () => {
             expect(fetch.mock.calls[0][1]).toMatchObject({ ...options });
         });
     });
+
+    it("error on throw error", async () => {
+        fetch.mockReject(new Error("fake error message"));
+
+        const Component = () => {
+            const result = useFetch("https://google.com");
+            return (result.error && result.error.message) || "text";
+        };
+
+        const { container, rerender } = render(<Component />);
+
+        await wait(() => {
+            rerender(<Component />);
+
+            expect(fetch.mock.calls.length).toEqual(1);
+            expect(container).toHaveTextContent("fake error message");
+            expect(fetch.mock.calls[0][0]).toEqual("https://google.com");
+        });
+    });
 });
