@@ -36,6 +36,7 @@ export function usePromise<T, I: $ReadOnlyArray<mixed>>(
         callFunction(...inputs)
             .then(data => {
                 setData(data);
+                setError(undefined);
                 setLoading(false);
             })
             .catch(error => {
