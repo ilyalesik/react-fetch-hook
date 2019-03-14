@@ -69,3 +69,14 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 });
 
 ```
+Motivation: you can apply hooks only at top level of function. 
+Calling hooks inside `if` or `for` statements, or change count of hooks may throw React error.
+```javascript
+// Potential сrash, because may call different count of hooks:
+const {authToken} = useContext(authTokenContext);
+if (!authToken) {
+    return null;
+}
+const { isLoading, data } = useFetch("https://swapi.co/api/people/1");
+
+```
