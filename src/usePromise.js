@@ -16,6 +16,24 @@ export const flattenInput = (...inputs: $ReadOnlyArray<mixed>): $ReadOnlyArray<m
             const keys = Object.keys(input);
             return [...accumulator, ...flattenInput(...keys.reduce((a, k) => [...a, k, input[k]], []))];
         }
+        if (input instanceof URL) {
+            return [
+                ...accumulator,
+                ...flattenInput(
+                    input.hash,
+                    input.host,
+                    input.hostname,
+                    input.href,
+                    input.origin,
+                    input.password,
+                    input.pathname,
+                    input.port,
+                    input.protocol,
+                    input.search,
+                    input.username
+                )
+            ];
+        }
         return [...accumulator, input];
     }, []);
 };

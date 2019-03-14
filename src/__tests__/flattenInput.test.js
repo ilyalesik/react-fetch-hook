@@ -20,4 +20,25 @@ describe("flattenInput", () => {
     it("with object recursive", () => {
         expect(flattenInput(1, { x: 1, y: 2, z: { x1: 3 } })).toMatchObject([1, "x", 1, "y", 2, "z", "x1", 3]);
     });
+
+    it("with URL instance", () => {
+        const url = new URL("https://google.com");
+        url.search = new URLSearchParams({ a: "aaa", b: "bbb" }).toString();
+        const result = flattenInput(url, { x: 1 });
+        expect(result).toMatchObject([
+            "",
+            "google.com",
+            "google.com",
+            "https://google.com/?a=aaa&b=bbb",
+            "https://google.com",
+            "",
+            "/",
+            "",
+            "https:",
+            "?a=aaa&b=bbb",
+            "",
+            "x",
+            1
+        ]);
+    });
 });
