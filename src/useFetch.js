@@ -9,7 +9,7 @@ type TUseFetchResult<T> = {
 
 export function useFetch<T>(
     path: RequestInfo,
-    options?: { ...RequestOptions, formatter?: Response => Promise<T> }
+    options?: { ...RequestOptions, formatter?: Response => Promise<T>, preventCallFetch?: boolean }
 ): TUseFetchResult<T> {
     const defaultFormatter = response => {
         if (!response.ok) {
@@ -18,7 +18,11 @@ export function useFetch<T>(
         return response.json();
     };
     const fetchInstance = formatter => (path, options) => {
-        return fetch(path, options).then((typeof formatter === "function" && formatter) || defaultFormatter);
+        const { preventCallFetch, ...otherOptions } = options || {};
+        if (preventCallFetch) {
+            return Promise.resolve();
+        }
+        return fetch(path, otherOptions).then((typeof formatter === "function" && formatter) || defaultFormatter);
     };
     if (options) {
         const { formatter, ...fetchOptions } = options;

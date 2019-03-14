@@ -51,11 +51,21 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 });
 
 ```
-
+### Custom formatter
 You can pass *formatter* prop for using custom formatter function. Default is used *response => response.json()* formatter.
 ```javascript
 const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
     formatter: (response) => response.text()
+});
+
+```
+### Prevent call `fetch`
+For prevent call fetch you can pass *preventCallFetch* prop:
+
+```javascript
+const {authToken} = useContext(authTokenContext);
+const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
+    preventCallFetch: !authToken //don't call request, if haven't authToken
 });
 
 ```
