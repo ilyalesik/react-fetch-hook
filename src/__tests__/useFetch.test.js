@@ -126,6 +126,29 @@ describe("useFetch", () => {
         });
     });
 
+    it("call with url, options with depends with empty string", async () => {
+        fetch.mockResponse(JSON.stringify({ data: "12345" }));
+        const options = {
+            headers: {
+                Accept: "application/json, application/xml, text/plain, text/html, *.*",
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        };
+
+        const Component = () => {
+            const result = useFetch("https://google.com", { ...options, depends: [""] });
+            return <div>{result.data}</div>;
+        };
+
+        const { container, rerender } = render(<Component />);
+
+        await wait(() => {
+            rerender(<Component />);
+
+            expect(fetch.mock.calls.length).toEqual(0);
+        });
+    });
+
     it("call with url, options with empty depends", async () => {
         fetch.mockResponse(JSON.stringify({ data: "12345" }));
         const options = {
