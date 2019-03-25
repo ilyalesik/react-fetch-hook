@@ -60,12 +60,13 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 
 ```
 ### Prevent call `fetch`
-For prevent call fetch you can pass *preventCallFetch* prop:
+For prevent call fetch you can pass *depends* prop:
 
 ```javascript
 const {authToken} = useContext(authTokenContext);
+const [someState, setSomeState] = useState(false);
 const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
-    preventCallFetch: !authToken //don't call request, if haven't authToken
+    depends: [!!authToken, someState] //don't call request, if haven't authToken and someState: false
 });
 
 ```

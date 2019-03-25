@@ -1,12 +1,12 @@
 {
   "name": "react-fetch-hook",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "React fetch hook",
   "main": "./dist/index.js",
   "scripts": {
     "flow": "flow",
     "flow:check": "flow check",
-    "test": "jest",
+    "test": "jest --silent",
     "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status",
     "build": "npm run build:clean && npm run build:lib && npm run build:flow",
     "build:clean": "rimraf dist",
