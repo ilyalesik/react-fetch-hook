@@ -14,6 +14,9 @@ export function useFetch<T>(
         formatter?: Response => Promise<T>,
         preventCallFetch?: boolean,
         depends?: Array<boolean>
+    },
+    specialOptions?: {
+        depends?: Array<boolean>
     }
 ): TUseFetchResult<T> {
     const defaultFormatter = response => {
@@ -22,10 +25,11 @@ export function useFetch<T>(
         }
         return response.json();
     };
-    const fetchInstance = formatter => (path, options) => {
+    const fetchInstance = formatter => (path, options, specialOptions) => {
         const { depends, preventCallFetch, ...otherOptions } = options || {};
-        const _preventCallFetch = depends
-            ? depends.reduce((accumulator, currentValue) => accumulator || !currentValue, false)
+        const _depends = (specialOptions && specialOptions.depends) || depends;
+        const _preventCallFetch = _depends
+            ? _depends.reduce((accumulator, currentValue) => accumulator || !currentValue, false)
             : preventCallFetch;
         if (_preventCallFetch) {
             return Promise.resolve();
@@ -35,7 +39,7 @@ export function useFetch<T>(
     if (options) {
         const { formatter, ...fetchOptions } = options;
 
-        return usePromise((fetchInstance(formatter): any), path, fetchOptions);
+        return usePromise((fetchInstance(formatter): any), path, fetchOptions, specialOptions);
     } else {
         return usePromise((fetchInstance(): any), path);
     }

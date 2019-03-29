@@ -126,6 +126,56 @@ describe("useFetch", () => {
         });
     });
 
+    it("call with url, options with depends at next arg", async () => {
+        fetch.mockResponse(JSON.stringify({ data: "12345" }));
+        const options = {
+            headers: {
+                Accept: "application/json, application/xml, text/plain, text/html, *.*",
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        };
+
+        const fetchParams = ["https://google.com", options];
+
+        const Component = () => {
+            const result = useFetch(...fetchParams, { depends: [true, false] });
+            return <div>{result.data && result.data.data}</div>;
+        };
+
+        const { container, rerender } = render(<Component />);
+
+        await wait(() => {
+            rerender(<Component />);
+
+            expect(fetch.mock.calls.length).toEqual(0);
+        });
+    });
+
+    it("call with url, options with depends: [true] at next arg", async () => {
+        fetch.mockResponse(JSON.stringify({ data: "12345" }));
+        const options = {
+            headers: {
+                Accept: "application/json, application/xml, text/plain, text/html, *.*",
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        };
+
+        const fetchParams = ["https://google.com", options];
+
+        const Component = () => {
+            const result = useFetch(...fetchParams, { depends: [true] });
+            return <div>{result.data && result.data.data}</div>;
+        };
+
+        const { container, rerender } = render(<Component />);
+
+        await wait(() => {
+            rerender(<Component />);
+
+            expect(fetch.mock.calls.length).toEqual(1);
+        });
+    });
+
     it("call with url, options with depends with empty string", async () => {
         fetch.mockResponse(JSON.stringify({ data: "12345" }));
         const options = {
