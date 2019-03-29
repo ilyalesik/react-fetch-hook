@@ -91,7 +91,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, preventCallFetch: true });
-            return <div>{result.data}</div>;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -114,7 +114,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, depends: [true, false] });
-            return <div>{result.data}</div>;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -137,7 +137,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, depends: [""] });
-            return <div>{result.data}</div>;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -160,7 +160,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, depends: [] });
-            return <div>{result.data}</div>;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -183,7 +183,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, depends: [true, true] });
-            return <div>{result.data}</div>;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
