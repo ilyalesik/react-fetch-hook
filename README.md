@@ -57,7 +57,7 @@ useFetch(
 ```
 where `TUseFetchResult` is:
 ```javascript
-type TUseFetchResult<T> = {
+{
     data: any,
     isLoading: boolean,
     error: any
