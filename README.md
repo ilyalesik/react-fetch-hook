@@ -4,25 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/react-fetch-hook.svg)](https://www.npmjs.com/package/react-fetch-hook)
 [![npm downloads](https://img.shields.io/npm/dt/react-fetch-hook.svg)](https://www.npmjs.com/package/react-fetch-hook)
 
-React hook, which allows you to conveniently work with *fetch*. Good Flow support.
-
-## Installation
-
-Install it with yarn:
-
-```
-yarn add react-fetch-hook
-```
-
-Or with npm:
-
-```
-npm i react-fetch-hook --save
-```
-
-## Usage
-
-*useFetch* hook accepts the same arguments as *fetch* function.
+React hook for conveniently use Fetch API.
 
 ```javascript
 import React from "react";
@@ -40,27 +22,64 @@ const Component = () => {
 
 ```
 
-You can pass any *fetch* options:
-```javascript
-const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
-    method: "get",
-    headers: {
-        Accept: "application/json, application/xml, text/plain, text/html, *.*",
-        "Content-Type": "application/json; charset=utf-8"
-    }
-});
+*useFetch* accepts the same arguments as *fetch* function.
+
+## Installation
+
+Install it with yarn:
 
 ```
-### Custom formatter
-You can pass *formatter* prop for using custom formatter function. Default is used *response => response.json()* formatter.
+yarn add react-fetch-hook
+```
+
+Or with npm:
+
+```
+npm i react-fetch-hook --save
+```
+
+## API
+
+### `useFetch`
+Create a hook wrapper for `fetch` call. 
+```javascript
+useFetch(
+    path: RequestInfo,
+    options?: {
+        ...RequestOptions,
+        formatter?: Response => Promise
+        depends?: Array<boolean>
+    },
+    specialOptions?: {
+        depends?: Array<boolean>
+    }
+): TUseFetchResult
+```
+where `TUseFetchResult` is:
+```javascript
+type TUseFetchResult<T> = {
+    data: any,
+    isLoading: boolean,
+    error: any
+}
+```
+#### Options:
+##### RequestInfo, RequestOptions
+ `RequestInfo`, `RequestOptions` is [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) args.
+
+##### formatter
+`formatter` - optional formatter function. 
+Default is `response => response.json()` formatter.
+Example:
 ```javascript
 const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
     formatter: (response) => response.text()
 });
 
 ```
-### Prevent call `fetch`
-For prevent call fetch you can pass *depends* prop:
+
+##### depends
+The request will not be called until all elements of `depends` array be truthy. Example:
 
 ```javascript
 const {authToken} = useContext(authTokenContext);
@@ -70,14 +89,30 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 });
 
 ```
-Motivation: you can apply hooks only at top level of function. 
-Calling hooks inside `if` or `for` statements, or change count of hooks may throw React error.
+
+If any element of `depends` changed, request will be re-call. For example, you can use [react-use-trigger](https://github.com/ilyalesik/react-use-trigger) for re-call the request:
 ```javascript
-// Potential сrash, because may call different count of hooks:
-const {authToken} = useContext(authTokenContext);
-if (!authToken) {
-    return null;
+import {createTrigger, useTrigger} from "react-use-trigger";
+
+const requestTrigger = createTrigger();
+
+export const Subscriber = () => {  
+    const requestTriggerValue = useTrigger(requestTrigger);
+    
+    const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
+        depends: [requestTriggerValue]
+    });
+  
+    return <div />;
 }
-const { isLoading, data } = useFetch("https://swapi.co/api/people/1");
+
+export const Sender = () => { 
+    return <button onClick={() => {
+        requestTrigger() // re-call request
+    }}>Send</button>
+}
+
+
 
 ```
+
