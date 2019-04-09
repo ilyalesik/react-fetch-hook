@@ -28,9 +28,9 @@ export function useFetch<T>(
     const fetchInstance = formatter => (path, options, specialOptions) => {
         const { depends, preventCallFetch, ...otherOptions } = options || {};
         const _depends = (specialOptions && specialOptions.depends) || depends;
-        const _preventCallFetch = _depends
-            ? _depends.reduce((accumulator, currentValue) => accumulator || !currentValue, false)
-            : preventCallFetch;
+        const _preventCallFetch =
+            (_depends && _depends.reduce((accumulator, currentValue) => accumulator || !currentValue, false)) ||
+            preventCallFetch;
         if (_preventCallFetch) {
             return Promise.resolve();
         }

@@ -103,6 +103,29 @@ describe("useFetch", () => {
         });
     });
 
+    it("call with url, options with preventCallFetch and depends", async () => {
+        fetch.mockResponse(JSON.stringify({ data: "12345" }));
+        const options = {
+            headers: {
+                Accept: "application/json, application/xml, text/plain, text/html, *.*",
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        };
+
+        const Component = () => {
+            const result = useFetch("https://google.com", { ...options, depends: [true], preventCallFetch: true });
+            return <div>{result.data && result.data.data}</div>;
+        };
+
+        const { container, rerender } = render(<Component />);
+
+        await wait(() => {
+            rerender(<Component />);
+
+            expect(fetch.mock.calls.length).toEqual(0);
+        });
+    });
+
     it("call with url, options with depends", async () => {
         fetch.mockResponse(JSON.stringify({ data: "12345" }));
         const options = {
