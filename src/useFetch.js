@@ -13,10 +13,10 @@ export function useFetch<T>(
         ...RequestOptions,
         formatter?: Response => Promise<T>,
         preventCallFetch?: boolean,
-        depends?: Array<boolean>
+        depends?: Array<mixed>
     },
     specialOptions?: {
-        depends?: Array<boolean>
+        depends?: Array<mixed>
     }
 ): TUseFetchResult<T> {
     const defaultFormatter = response => {
