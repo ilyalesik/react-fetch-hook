@@ -116,3 +116,31 @@ export const Sender = () => {
 
 ```
 
+### `useFetch`
+```javascript
+usePromise<T, I: $ReadOnlyArray<mixed>>(
+    callFunction: ?(...args: I) => Promise<T>,
+    ...inputs: I
+): TUsePromiseResult<T>
+```
+where `TUsePromiseResult<T>` is
+```javascript
+type TUsePromiseResult<T> = {
+    data: ?T,
+    isLoading: boolean,
+    error: mixed
+}
+```
+
+### `usePaginatedRequest`
+Create a paginated request. 
+```javascript
+usePaginatedRequest = <T>(
+    request: (params: { limit: number, offset: number }) => Promise<Array<T>>,
+    limit: number
+): {
+    data: Array<T>,
+    loadMore?: () => mixed,
+    hasMore: boolean
+};
+```
