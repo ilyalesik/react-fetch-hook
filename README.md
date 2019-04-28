@@ -116,7 +116,7 @@ export const Sender = () => {
 
 ```
 
-### `useFetch`
+### `usePromise`
 ```javascript
 usePromise<T, I: $ReadOnlyArray<mixed>>(
     callFunction: ?(...args: I) => Promise<T>,
