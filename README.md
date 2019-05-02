@@ -92,7 +92,8 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 
 If any element of `depends` changed, request will be re-call. For example, you can use [react-use-trigger](https://github.com/ilyalesik/react-use-trigger) for re-call the request:
 ```javascript
-import {createTrigger, useTrigger} from "react-use-trigger";
+import createTrigger from "react-use-trigger";
+import useTrigger from "react-use-trigger/useTrigger";
 
 const requestTrigger = createTrigger();
 
