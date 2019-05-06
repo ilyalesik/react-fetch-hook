@@ -24,6 +24,11 @@ const Component = () => {
 
 *useFetch* accepts the same arguments as *fetch* function.
 
+<a href="https://lessmess.agency/?utm_source=react-fetch-hook">
+  <img src="https://lessmess.agency/badges/sponsored_by_lessmess.svg"
+       alt="Sponsored by Lessmess" width="236" height="54">
+</a>
+
 ## Installation
 
 Install it with yarn:
