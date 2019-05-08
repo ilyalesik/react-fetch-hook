@@ -6,6 +6,8 @@
 
 React hook for conveniently use Fetch API.
 
+Both **Flow** and **TS** types included.
+
 ```javascript
 import React from "react";
 import { useFetch } from "react-fetch-hook";
