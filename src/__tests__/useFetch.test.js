@@ -1,6 +1,6 @@
 import React from "react";
 import { render, wait } from "react-testing-library";
-import { useFetch } from "../useFetch";
+import useFetch from "../..";
 
 describe("useFetch", () => {
     beforeEach(() => {
@@ -77,52 +77,6 @@ describe("useFetch", () => {
             expect(container).toHaveTextContent("xxx");
             expect(fetch.mock.calls[0][0]).toEqual("https://google.com");
             expect(fetch.mock.calls[0][1]).toMatchObject({ ...options });
-        });
-    });
-
-    it("call with url, options with preventCallFetch", async () => {
-        fetch.mockResponse(JSON.stringify({ data: "12345" }));
-        const options = {
-            headers: {
-                Accept: "application/json, application/xml, text/plain, text/html, *.*",
-                "Content-Type": "application/json; charset=utf-8"
-            }
-        };
-
-        const Component = () => {
-            const result = useFetch("https://google.com", { ...options, preventCallFetch: true });
-            return <div>{result.data && result.data.data}</div>;
-        };
-
-        const { container, rerender } = render(<Component />);
-
-        await wait(() => {
-            rerender(<Component />);
-
-            expect(fetch.mock.calls.length).toEqual(0);
-        });
-    });
-
-    it("call with url, options with preventCallFetch and depends", async () => {
-        fetch.mockResponse(JSON.stringify({ data: "12345" }));
-        const options = {
-            headers: {
-                Accept: "application/json, application/xml, text/plain, text/html, *.*",
-                "Content-Type": "application/json; charset=utf-8"
-            }
-        };
-
-        const Component = () => {
-            const result = useFetch("https://google.com", { ...options, depends: [true], preventCallFetch: true });
-            return <div>{result.data && result.data.data}</div>;
-        };
-
-        const { container, rerender } = render(<Component />);
-
-        await wait(() => {
-            rerender(<Component />);
-
-            expect(fetch.mock.calls.length).toEqual(0);
         });
     });
 

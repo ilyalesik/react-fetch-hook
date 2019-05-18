@@ -1,4 +1,4 @@
-import { flattenInput } from "../usePromise";
+import flattenInput from "../flattenInput";
 
 describe("flattenInput", () => {
     it("simple", () => {
