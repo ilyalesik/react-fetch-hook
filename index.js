@@ -13,13 +13,10 @@ function flatDeps (accumulator, currentValue) {
 
 function fetchInstance (formatter) {
   return function (path, options, specialOptions) {
-    var _depends = (specialOptions && specialOptions.depends) ||
-        (options && options.depends)
-    if (_depends && _depends.reduce(flatDeps, false)) {
-      return Promise.resolve()
-    }
+    if ((specialOptions.depends || options.depends || []).reduce(flatDeps, false))
+        return Promise.resolve()
     return fetch(path, options)
-      .then((typeof formatter === 'function' && formatter) || defaultFormatter)
+      .then(formatter || defaultFormatter)
   }
 }
 
@@ -29,7 +26,7 @@ function useFetch (
   specialOptions
 ) {
   return usePromise(fetchInstance(options && options.formatter),
-    path, options, specialOptions)
+    path, options || {}, specialOptions || {})
 }
 
 module.exports = useFetch
