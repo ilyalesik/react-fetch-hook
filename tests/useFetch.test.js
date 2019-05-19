@@ -1,6 +1,6 @@
 import React from "react";
 import { render, wait } from "react-testing-library";
-import useFetch from "../..";
+import useFetch from "../index";
 
 describe("useFetch", () => {
     beforeEach(() => {

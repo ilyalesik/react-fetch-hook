@@ -1,4 +1,5 @@
 var React = require('react')
+
 var flattenInput = require('./src/flattenInput')
 
 function usePromise (
@@ -14,7 +15,7 @@ function usePromise (
       return
     }
     loadingState[1](true)
-    callFunction.apply(this, inputs)
+    callFunction.apply(null, inputs)
       .then(function (data) {
         dataState[1](data)
         errorState[1](undefined)

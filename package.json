@@ -27,7 +27,7 @@
         }
     },
   "jest": {
-    "setupTestFrameworkScriptFile": "./setupTests.js",
+    "setupTestFrameworkScriptFile": "./jest/setupTests.js",
     "moduleNameMapper": {
       "\\.(svg|png)$": "<rootDir>/__mocks__/fileMock.js"
     }
@@ -46,6 +46,10 @@
     "src"
   ],
   "pre-commit": [
+      "lint",
+      "flow:check",
+      "test",
+      "size"
   ],
   "repository": {
     "type": "git",
