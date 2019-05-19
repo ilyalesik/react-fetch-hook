@@ -6,34 +6,34 @@ function usePromise (
   callFunction
 ) {
   var inputs = Array.prototype.slice.call(arguments, [1])
-  var dataState = React.useState(null)
-  var loadingState = React.useState(false)
-  var errorState = React.useState()
+  var state = React.useState({
+    data: null,
+    isLoading: false
+  })
 
   function call () {
     if (!callFunction) {
       return
     }
-    loadingState[1](true)
+    state[1]({ isLoading: true })
     callFunction.apply(null, inputs)
       .then(function (data) {
-        dataState[1](data)
-        errorState[1](undefined)
-        loadingState[1](false)
+        state[1]({
+          data: data,
+          isLoading: false
+        })
       })
       .catch(function (error) {
-        errorState[1](error)
-        loadingState[1](false)
+        state[1]({
+          error: error,
+          isLoading: false
+        })
       })
   }
 
   React.useEffect(call, flattenInput(inputs))
 
-  return {
-    data: dataState[0],
-    isLoading: loadingState[0],
-    error: errorState[0]
-  }
+  return state[0]
 }
 
 module.exports = usePromise

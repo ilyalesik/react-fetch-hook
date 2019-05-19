@@ -12,7 +12,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com");
-            return result.data && result.data.data;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -64,7 +64,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, formatter: formatterMock });
-            return result.data;
+            return <div>{result.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
