@@ -7,18 +7,7 @@ function flattenInput () {
         res = res.concat(flattenInput(input[j]))
       }
     } else if (input instanceof URL) {
-      res = res.concat([
-        input.hash,
-        input.host,
-        input.hostname,
-        input.href,
-        input.origin,
-        input.password,
-        input.pathname,
-        input.port,
-        input.protocol,
-        input.search,
-        input.username])
+      res = res.concat(input.toJSON())
     } else if (input instanceof Object) {
       var keys = Object.keys(input)
       for (var k = 0; k < keys.length; k++) {
