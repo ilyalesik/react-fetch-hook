@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`usePaginatedRequest call loadMore (expect hasMore - false) 1`] = `
+<div>
+  <div>
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+    <button
+      data-testid="trigger"
+    />
+  </div>
+</div>
+`;
+
+exports[`usePaginatedRequest call loadMore 1`] = `
+<div>
+  <div>
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+    <div>
+      4
+    </div>
+    <div>
+      hasMore
+    </div>
+    <button
+      data-testid="trigger"
+    />
+  </div>
+</div>
+`;
+
+exports[`usePaginatedRequest first load (expect hasMore - false) 1`] = `
+<div>
+  <div>
+    <div>
+      1
+    </div>
+    <button
+      data-testid="trigger"
+    />
+  </div>
+</div>
+`;
+
+exports[`usePaginatedRequest first load 1`] = `
+<div>
+  <div>
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      hasMore
+    </div>
+    <button
+      data-testid="trigger"
+    />
+  </div>
+</div>
+`;

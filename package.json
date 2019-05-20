@@ -39,6 +39,13 @@
       ],
       "limit": "391 B",
       "path": "index.js"
+    },
+    {
+      "ignore": [
+        "react"
+      ],
+      "limit": "186 B",
+      "path": "usePaginatedRequest.js"
     }
   ],
   "files": [
