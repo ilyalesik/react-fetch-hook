@@ -49,8 +49,16 @@
     }
   ],
   "files": [
-    "dist",
-    "src"
+      "src",
+      "index.js",
+      "index.js.flow",
+      "index.d.ts",
+      "usePromise.js",
+      "usePromise.js.flow",
+      "usePromise.d.ts",
+      "usePaginatedRequest.js",
+      "usePaginatedRequest.js.flow",
+      "usePaginatedRequest.d.ts"
   ],
   "pre-commit": [
       "lint",

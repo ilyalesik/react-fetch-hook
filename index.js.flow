@@ -1,0 +1,14 @@
+// @flow
+
+type TUseFetchResult<T> = {
+  data: ?T,
+  isLoading: boolean,
+  error: mixed,
+};
+declare export function useFetch<T>(path: RequestInfo, options?: { ...RequestOptions,
+  formatter?: (Response) => Promise<T>,
+  preventCallFetch?: boolean,
+  depends?: Array<mixed>,
+}, specialOptions?: {
+  depends?: Array<mixed>
+}): TUseFetchResult<T>;
