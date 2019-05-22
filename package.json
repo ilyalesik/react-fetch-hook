@@ -6,31 +6,22 @@
     "flow": "flow",
     "flow:check": "flow check",
     "typescript": "tsc -p tsconfig.json --noEmit",
-    "copy:ts": "cp ./src/index.d.ts ./dist/index.d.ts",
     "test": "jest --silent",
-    "prettier": "prettier \"*/**/*.js\" --ignore-path ./.prettierignore --write && git add . && git status",
-    "build": "npm run build:clean && npm run build:lib && npm run build:flow && npm run copy:ts",
-    "build:clean": "rimraf dist",
-    "build:lib": "cross-env BABEL_ENV=production babel src --out-dir dist --ignore '**/__tests__/**'",
-    "build:flow": "gen-flow-files src --out-dir dist",
     "size": "size-limit",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
-    "prepublish": "npm run flow:check && npm run test && npm run build"
+    "prepublish": "npm run flow:check && npm run typescript && npm run lint && npm run size && npm run test"
   },
-    "eslintConfig": {
-        "extends": "@logux/eslint-config/browser",
-        "rules": {
-            "node/no-unpublished-require": "off",
-            "es5/no-es6-static-methods": "off",
-            "node/no-missing-require": "off",
-            "func-style": "off"
-        }
-    },
-  "jest": {
-    "setupTestFrameworkScriptFile": "./jest/setupTests.js",
-    "moduleNameMapper": {
-      "\\.(svg|png)$": "<rootDir>/__mocks__/fileMock.js"
+  "eslintConfig": {
+    "extends": "@logux/eslint-config/browser",
+    "rules": {
+      "node/no-unpublished-require": "off",
+      "es5/no-es6-static-methods": "off",
+      "node/no-missing-require": "off",
+      "func-style": "off"
     }
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./jest/setupTests.js"
   },
   "size-limit": [
     {
@@ -49,22 +40,22 @@
     }
   ],
   "files": [
-      "src",
-      "index.js",
-      "index.js.flow",
-      "index.d.ts",
-      "usePromise.js",
-      "usePromise.js.flow",
-      "usePromise.d.ts",
-      "usePaginatedRequest.js",
-      "usePaginatedRequest.js.flow",
-      "usePaginatedRequest.d.ts"
+    "src",
+    "index.js",
+    "index.js.flow",
+    "index.d.ts",
+    "usePromise.js",
+    "usePromise.js.flow",
+    "usePromise.d.ts",
+    "usePaginatedRequest.js",
+    "usePaginatedRequest.js.flow",
+    "usePaginatedRequest.d.ts"
   ],
   "pre-commit": [
-      "lint",
-      "flow:check",
-      "test",
-      "size"
+    "lint",
+    "flow:check",
+    "test",
+    "size"
   ],
   "repository": {
     "type": "git",
@@ -107,12 +98,10 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.0",
     "flow-bin": "^0.89.0",
-    "gen-flow-files": "^0.4.1",
     "jest": "^23.6.0",
     "jest-dom": "^3.0.0",
     "jest-fetch-mock": "^2.1.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.15.3",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
