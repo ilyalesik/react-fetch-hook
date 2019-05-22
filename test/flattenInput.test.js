@@ -1,4 +1,4 @@
-import flattenInput from "../src/flattenInput";
+import flattenInput from "../utils/flattenInput";
 
 describe("flattenInput", () => {
     it("simple", () => {

@@ -2,5 +2,5 @@
 dist/
 node_modules/
 flow-typed/
-tests/
+test/
 types/

@@ -40,7 +40,7 @@
     }
   ],
   "files": [
-    "src",
+    "utils",
     "index.js",
     "index.js.flow",
     "index.d.ts",

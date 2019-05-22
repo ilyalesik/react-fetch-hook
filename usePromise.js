@@ -1,6 +1,6 @@
 var React = require('react')
 
-var flattenInput = require('./src/flattenInput')
+var flattenInput = require('./utils/flattenInput')
 
 function usePromise (
   callFunction
