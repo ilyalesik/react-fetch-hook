@@ -6,11 +6,12 @@
 
 React hook for conveniently use Fetch API.
 
-Both **Flow** and **TypeScript** types included.
+* **Tiny** (391 B). Calculated by [size-limit](https://github.com/ai/size-limit)
+* Both **Flow** and **TypeScript** types included
 
 ```javascript
 import React from "react";
-import { useFetch } from "react-fetch-hook";
+import useFetch from "react-fetch-hook";
 
 const Component = () => {
   const { isLoading, data } = useFetch("https://swapi.co/api/people/1");
@@ -26,11 +27,6 @@ const Component = () => {
 
 *useFetch* accepts the same arguments as *fetch* function.
 
-<a href="https://lessmess.agency/?utm_source=react-fetch-hook">
-  <img src="https://lessmess.agency/badges/sponsored_by_lessmess.svg"
-       alt="Sponsored by Lessmess" width="236" height="54">
-</a>
-
 ## Installation
 
 Install it with yarn:
@@ -44,6 +40,103 @@ Or with npm:
 ```
 npm i react-fetch-hook --save
 ```
+
+## Features
+
+### Custom formatter
+
+Default is `response => response.json()` formatter. You can pass custom formatter:
+
+```javascript
+const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
+    formatter: (response) => response.text()
+});
+
+```
+
+### Depends
+The request will not be called until all elements of `depends` array be truthy. Example:
+
+```javascript
+const {authToken} = useContext(authTokenContext);
+const [someState, setSomeState] = useState(false);
+const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
+    depends: [!!authToken, someState] //don't call request, if haven't authToken and someState: false
+});
+
+```
+
+### Re-call requests
+If any element of `depends` changed, request will be re-call. For example, you can use [react-use-trigger](https://github.com/ilyalesik/react-use-trigger) for re-call the request:
+```javascript
+import createTrigger from "react-use-trigger";
+import useTrigger from "react-use-trigger/useTrigger";
+
+const requestTrigger = createTrigger();
+
+export const Subscriber = () => {  
+    const requestTriggerValue = useTrigger(requestTrigger);
+    
+    const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
+        depends: [requestTriggerValue]
+    });
+  
+    return <div />;
+}
+
+export const Sender = () => { 
+    return <button onClick={() => {
+        requestTrigger() // re-call request
+    }}>Send</button>
+}
+```
+
+### usePromise
+For custom promised function.
+
+```javascript
+import React from "react";
+import usePromise from "react-fetch-hook/usePromise";
+import callPromise from "..."
+
+const Component = () => {
+  const { isLoading, data } = usePromise(() => callPromise(...params), [...params]);
+
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
+    <UserProfile {...data} />
+  );
+};
+```
+
+### Paginated requests
+
+```javascript
+import React from "react";
+import usePaginatedRequest from "react-fetch-hook/usePaginatedRequest";
+import fetchSomeData from "..."
+
+const Component = () => {
+    const results = usePaginatedRequest(
+        ({limit, offset}) => fetchSomeData(limit, offset),
+        20
+    );
+
+    return (
+        <InfiniteScroll
+            pageStart={0}
+            loadMore={results.loadMore}
+            hasMore={results.hasMore}
+            loader={<div />}>
+            {results.data && results.data.map((item) => {
+                ...
+            })}
+        </InfiniteScroll>)
+}      
+```
+
+
 
 ## API
 
@@ -70,59 +163,9 @@ where `TUseFetchResult` is:
     error: any
 }
 ```
-#### Options:
-##### RequestInfo, RequestOptions
+
  `RequestInfo`, `RequestOptions` is [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) args.
 
-##### formatter
-`formatter` - optional formatter function. 
-Default is `response => response.json()` formatter.
-Example:
-```javascript
-const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
-    formatter: (response) => response.text()
-});
-
-```
-
-##### depends
-The request will not be called until all elements of `depends` array be truthy. Example:
-
-```javascript
-const {authToken} = useContext(authTokenContext);
-const [someState, setSomeState] = useState(false);
-const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
-    depends: [!!authToken, someState] //don't call request, if haven't authToken and someState: false
-});
-
-```
-
-If any element of `depends` changed, request will be re-call. For example, you can use [react-use-trigger](https://github.com/ilyalesik/react-use-trigger) for re-call the request:
-```javascript
-import createTrigger from "react-use-trigger";
-import useTrigger from "react-use-trigger/useTrigger";
-
-const requestTrigger = createTrigger();
-
-export const Subscriber = () => {  
-    const requestTriggerValue = useTrigger(requestTrigger);
-    
-    const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
-        depends: [requestTriggerValue]
-    });
-  
-    return <div />;
-}
-
-export const Sender = () => { 
-    return <button onClick={() => {
-        requestTrigger() // re-call request
-    }}>Send</button>
-}
-
-
-
-```
 
 ### `usePromise`
 ```javascript
@@ -152,3 +195,9 @@ usePaginatedRequest = <T>(
     hasMore: boolean
 };
 ```
+
+## Sponsored
+<a href="https://lessmess.agency/?utm_source=react-fetch-hook">
+  <img src="https://lessmess.agency/badges/sponsored_by_lessmess.svg"
+       alt="Sponsored by Lessmess" width="236" height="54">
+</a>
