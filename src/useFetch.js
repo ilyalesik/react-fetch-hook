@@ -27,6 +27,9 @@ export function useFetch<T>(
     };
     const fetchInstance = formatter => (path, options, specialOptions) => {
         const { depends, preventCallFetch, ...otherOptions } = options || {};
+        if (process.env.NODE_ENV !== "production" && preventCallFetch) {
+            console.warn("'preventCallFetch' is now deprecated, use 'depends' instead");
+        }
         const _depends = (specialOptions && specialOptions.depends) || depends;
         const _preventCallFetch =
             (_depends && _depends.reduce((accumulator, currentValue) => accumulator || !currentValue, false)) ||
