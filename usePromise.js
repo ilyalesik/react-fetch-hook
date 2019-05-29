@@ -7,15 +7,14 @@ function usePromise (
 ) {
   var inputs = Array.prototype.slice.call(arguments, [1])
   var state = React.useState({
-    data: null,
     isLoading: false
   })
 
-  function call () {
+  React.useEffect(function () {
     if (!callFunction) {
       return
     }
-    state[1]({ isLoading: true })
+    state[1]({ data: state[0].data, isLoading: true })
     callFunction.apply(null, inputs)
       .then(function (data) {
         state[1]({
@@ -29,9 +28,7 @@ function usePromise (
           isLoading: false
         })
       })
-  }
-
-  React.useEffect(call, flattenInput(inputs))
+  }, flattenInput(inputs))
 
   return state[0]
 }

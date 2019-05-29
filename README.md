@@ -6,7 +6,7 @@
 
 React hook for conveniently use Fetch API.
 
-* **Tiny** (393 B). Calculated by [size-limit](https://github.com/ai/size-limit)
+* **Tiny** (396 B). Calculated by [size-limit](https://github.com/ai/size-limit)
 * Both **Flow** and **TypeScript** types included
 
 ```javascript
