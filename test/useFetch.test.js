@@ -1,6 +1,6 @@
 import React from "react";
 import { render, wait } from "react-testing-library";
-import { useFetch } from "../useFetch";
+import useFetch from "../index";
 
 describe("useFetch", () => {
     beforeEach(() => {
@@ -12,7 +12,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com");
-            return result.data && result.data.data;
+            return <div>{result.data && result.data.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -64,7 +64,7 @@ describe("useFetch", () => {
 
         const Component = () => {
             const result = useFetch("https://google.com", { ...options, formatter: formatterMock });
-            return result.data;
+            return <div>{result.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -80,7 +80,7 @@ describe("useFetch", () => {
         });
     });
 
-    it("call with url, options with preventCallFetch", async () => {
+    it("call with url, options, special options with formatter", async () => {
         fetch.mockResponse(JSON.stringify({ data: "12345" }));
         const options = {
             headers: {
@@ -88,10 +88,12 @@ describe("useFetch", () => {
                 "Content-Type": "application/json; charset=utf-8"
             }
         };
+        const formatterMock = jest.fn();
+        formatterMock.mockReturnValueOnce("xxx");
 
         const Component = () => {
-            const result = useFetch("https://google.com", { ...options, preventCallFetch: true });
-            return <div>{result.data && result.data.data}</div>;
+            const result = useFetch("https://google.com", { ...options }, { formatter: formatterMock});
+            return <div>{result.data}</div>;
         };
 
         const { container, rerender } = render(<Component />);
@@ -99,30 +101,11 @@ describe("useFetch", () => {
         await wait(() => {
             rerender(<Component />);
 
-            expect(fetch.mock.calls.length).toEqual(0);
-        });
-    });
-
-    it("call with url, options with preventCallFetch and depends", async () => {
-        fetch.mockResponse(JSON.stringify({ data: "12345" }));
-        const options = {
-            headers: {
-                Accept: "application/json, application/xml, text/plain, text/html, *.*",
-                "Content-Type": "application/json; charset=utf-8"
-            }
-        };
-
-        const Component = () => {
-            const result = useFetch("https://google.com", { ...options, depends: [true], preventCallFetch: true });
-            return <div>{result.data && result.data.data}</div>;
-        };
-
-        const { container, rerender } = render(<Component />);
-
-        await wait(() => {
-            rerender(<Component />);
-
-            expect(fetch.mock.calls.length).toEqual(0);
+            expect(fetch.mock.calls.length).toEqual(1);
+            expect(formatterMock.mock.calls.length).toEqual(1);
+            expect(container).toHaveTextContent("xxx");
+            expect(fetch.mock.calls[0][0]).toEqual("https://google.com");
+            expect(fetch.mock.calls[0][1]).toMatchObject({ ...options });
         });
     });
 

@@ -1,0 +1,11 @@
+// @flow
+declare function usePaginatedRequest<T>(request: (params: {
+  limit: number,
+  offset: number,
+}) => Promise<Array<T>>, limit: number): {
+  data: Array<T>,
+  loadMore?: () => mixed,
+  hasMore: boolean,
+};
+
+declare export default typeof usePaginatedRequest;

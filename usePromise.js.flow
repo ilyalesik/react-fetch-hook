@@ -1,0 +1,8 @@
+// @flow
+type TUsePromiseResult<T> = {
+  data: ?T,
+  isLoading: boolean,
+  error: mixed,
+};
+declare function usePromise<T, I: $ReadOnlyArray<mixed>>(callFunction: ?(...args: I) => Promise<T>, ...inputs: I): TUsePromiseResult<T>;
+declare export default typeof usePromise;

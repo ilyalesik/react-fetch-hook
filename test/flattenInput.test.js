@@ -1,4 +1,4 @@
-import { flattenInput } from "../usePromise";
+import flattenInput from "../utils/flattenInput";
 
 describe("flattenInput", () => {
     it("simple", () => {
@@ -26,17 +26,7 @@ describe("flattenInput", () => {
         url.search = new URLSearchParams({ a: "aaa", b: "bbb" }).toString();
         const result = flattenInput(url, { x: 1 });
         expect(result).toMatchObject([
-            "",
-            "google.com",
-            "google.com",
             "https://google.com/?a=aaa&b=bbb",
-            "https://google.com",
-            "",
-            "/",
-            "",
-            "https:",
-            "?a=aaa&b=bbb",
-            "",
             "x",
             1
         ]);

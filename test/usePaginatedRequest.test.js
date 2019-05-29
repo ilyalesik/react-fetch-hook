@@ -1,6 +1,6 @@
 import React from "react";
 import { render, wait, fireEvent, cleanup } from "react-testing-library";
-import { usePaginatedRequest } from "../usePaginatedRequest";
+import usePaginatedRequest from "../usePaginatedRequest";
 
 const ChildComponent = props => {
     return (
