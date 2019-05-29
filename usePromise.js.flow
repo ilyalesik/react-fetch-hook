@@ -4,4 +4,5 @@ type TUsePromiseResult<T> = {
   isLoading: boolean,
   error: mixed,
 };
-declare export function usePromise<T, I: $ReadOnlyArray<mixed>>(callFunction: ?(...args: I) => Promise<T>, ...inputs: I): TUsePromiseResult<T>;
+declare function usePromise<T, I: $ReadOnlyArray<mixed>>(callFunction: ?(...args: I) => Promise<T>, ...inputs: I): TUsePromiseResult<T>;
+declare export default typeof usePromise;

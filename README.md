@@ -6,7 +6,7 @@
 
 React hook for conveniently use Fetch API.
 
-* **Tiny** (391 B). Calculated by [size-limit](https://github.com/ai/size-limit)
+* **Tiny** (393 B). Calculated by [size-limit](https://github.com/ai/size-limit)
 * Both **Flow** and **TypeScript** types included
 
 ```javascript
@@ -151,6 +151,7 @@ useFetch(
         depends?: Array<boolean>
     },
     specialOptions?: {
+        formatter?: Response => Promise
         depends?: Array<boolean>
     }
 ): TUseFetchResult

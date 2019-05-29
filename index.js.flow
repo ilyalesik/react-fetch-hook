@@ -5,10 +5,12 @@ type TUseFetchResult<T> = {
   isLoading: boolean,
   error: mixed,
 };
-declare export function useFetch<T>(path: RequestInfo, options?: { ...RequestOptions,
+declare function useFetch<T>(path: RequestInfo, options?: { ...RequestOptions,
   formatter?: (Response) => Promise<T>,
-  preventCallFetch?: boolean,
   depends?: Array<mixed>,
 }, specialOptions?: {
+  formatter?: (Response) => Promise<T>,
   depends?: Array<mixed>
 }): TUseFetchResult<T>;
+
+declare export default typeof useFetch;

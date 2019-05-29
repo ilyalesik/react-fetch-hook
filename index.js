@@ -10,7 +10,7 @@ function useFetch (
       .reduce(function (acc, dep) { return acc || !dep },
         false)) return Promise.resolve()
     return fetch(p, o)
-      .then((o && o.formatter) || function (response) {
+      .then((s && s.formatter) || (o && o.formatter) || function (response) {
         if (!response.ok) throw Error(response.statusText)
         return response.json()
       })

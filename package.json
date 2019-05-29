@@ -1,6 +1,6 @@
 {
   "name": "react-fetch-hook",
-  "version": "1.5.0",
+  "version": "1.6.0-alpha.1",
   "description": "React fetch hook",
   "scripts": {
     "flow": "flow",
@@ -28,7 +28,7 @@
       "ignore": [
         "react"
       ],
-      "limit": "391 B",
+      "limit": "393 B",
       "path": "index.js"
     },
     {
