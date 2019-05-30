@@ -292,4 +292,33 @@ describe("useFetch", () => {
             expect(fetch.mock.calls[0][0]).toEqual("https://google.com");
         });
     });
+
+    it("call with URL", async () => {
+        fetch.mockResponse(JSON.stringify({ data: "12345" }));
+
+        const url = new URL("https://google.com");
+
+        url.search = new URLSearchParams({a: 1, b: 2}).toString();
+
+        const Component = () => {
+            const result = useFetch(url, {
+                depends: ["1", 1]
+            });
+            return <div>{result.data && result.data.data}</div>;
+        };
+
+        const { container, rerender } = render(<Component />);
+
+        await wait(() => {
+            rerender(<Component />);
+        });
+
+        await wait(() => {
+            rerender(<Component />);
+
+            expect(fetch.mock.calls.length).toEqual(1);
+            expect(container).toHaveTextContent("12345");
+            expect(fetch.mock.calls[0][0]).toMatchObject(url);
+        });
+    });
 });
