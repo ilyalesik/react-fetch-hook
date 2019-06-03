@@ -13,11 +13,16 @@
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config/browser",
+    "plugins": [
+      "react-hooks"
+    ],
     "rules": {
       "node/no-unpublished-require": "off",
       "es5/no-es6-static-methods": "off",
       "node/no-missing-require": "off",
-      "func-style": "off"
+      "func-style": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
     }
   },
   "jest": {
@@ -95,6 +100,7 @@
     "eslint-plugin-node": "^9.0.1",
     "eslint-plugin-prefer-let": "^1.0.1",
     "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-react-hooks": "^1.6.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.0",
     "flow-bin": "^0.89.0",
