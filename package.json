@@ -12,17 +12,12 @@
     "prepublish": "npm run flow:check && npm run typescript && npm run lint && npm run size && npm run test"
   },
   "eslintConfig": {
-    "extends": "@logux/eslint-config/browser",
-    "plugins": [
-      "react-hooks"
+    "extends": [
+      "lessmess/lib",
+      "lessmess/react-hooks"
     ],
     "rules": {
-      "node/no-unpublished-require": "off",
-      "es5/no-es6-static-methods": "off",
-      "node/no-missing-require": "off",
-      "func-style": "off",
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn"
+      "func-style": "off"
     }
   },
   "jest": {
@@ -86,12 +81,12 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "@logux/eslint-config": "^28.2.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-react-flow-props-to-prop-types": "^0.15.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
+    "eslint-config-lessmess": "0.0.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-es5": "^1.3.1",
     "eslint-plugin-import": "^2.17.2",
