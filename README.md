@@ -41,7 +41,7 @@ Or with npm:
 npm i react-fetch-hook --save
 ```
 
-## Features
+## Usage
 
 ### Custom formatter
 
@@ -52,6 +52,23 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
     formatter: (response) => response.text()
 });
 
+```
+
+### Multiple requests
+Multiple `useFetch` in the same file/component supported:
+
+```javascript
+const result1 = useFetch("https://swapi.co/api/people/1");
+const result2 = useFetch("https://swapi.co/api/people/2");
+
+if (result1.isLoading && result2.isLoading) {
+  return <div>Loading...</div>;
+}  
+
+return <div>
+    <UserProfile {...result1.data} />
+    <UserProfile {...result2.data} />
+</div>
 ```
 
 ### Depends
