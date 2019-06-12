@@ -1,6 +1,6 @@
 {
   "name": "react-fetch-hook",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "React fetch hook",
   "scripts": {
     "flow": "flow",
@@ -9,6 +9,7 @@
     "test": "jest --silent",
     "size": "size-limit",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
+    "run:example:depends": "parcel ./examples/depends/index.html",
     "prepublish": "npm run flow:check && npm run typescript && npm run lint && npm run size && npm run test"
   },
   "eslintConfig": {
@@ -102,6 +103,7 @@
     "jest": "^23.6.0",
     "jest-dom": "^3.0.0",
     "jest-fetch-mock": "^2.1.0",
+    "parcel-bundler": "^1.12.3",
     "pre-commit": "^1.2.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
