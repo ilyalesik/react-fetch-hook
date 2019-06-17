@@ -4,12 +4,19 @@ function usePaginatedRequest (
   request,
   limit
 ) {
+  var depends = Array.prototype.slice.call(arguments, [2])
   var dataState = React.useState([])
   var currentUpdate = React.useRef()
   var offsetState = React.useState(0)
   var hasMoreState = React.useState(true)
 
   var loadMoreRef = React.useRef(function () {})
+
+  /* React.useEffect(function () {
+        dataState[1]([])
+        offsetState[1](0)
+        hasMoreState[1](true);
+    }, [depends]) */
 
   React.useEffect(
     function () {
@@ -29,7 +36,7 @@ function usePaginatedRequest (
       }
       currentUpdate.current = update()
     },
-    [offsetState[0]]
+    [offsetState[0]].concat(depends)
   )
 
   return {

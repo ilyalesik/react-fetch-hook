@@ -10,6 +10,7 @@
     "size": "size-limit",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
     "run:example:depends": "parcel ./examples/depends/index.html",
+    "run:example:pagination": "parcel ./examples/pagination/index.html --no-cache",
     "prepublish": "npm run flow:check && npm run typescript && npm run lint && npm run size && npm run test"
   },
   "eslintConfig": {
@@ -55,8 +56,7 @@
   "pre-commit": [
     "lint",
     "flow:check",
-    "test",
-    "size"
+    "test"
   ],
   "repository": {
     "type": "git",
@@ -79,6 +79,7 @@
   "devDependencies": {
     "@babel/cli": "^7.2.0",
     "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -107,6 +108,7 @@
     "pre-commit": "^1.2.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-infinite-scroller": "^1.2.4",
     "react-test-renderer": "^16.8.0",
     "react-testing-library": "^6.0.0",
     "rimraf": "^2.6.2",
