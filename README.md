@@ -176,6 +176,7 @@ type TUsePromiseResult<T> = {
 
 ### Experimental: `usePaginatedRequest`
 ⚠️ Warning: this method is experimental, API can be changed.
+
 Create a paginated request. 
 ```javascript
 usePaginatedRequest = <T>(
