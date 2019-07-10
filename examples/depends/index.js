@@ -4,16 +4,16 @@ import useFetch from "../../index";
 
 
 const App = () => {
-    const [isTimeoutEnded, setTimeoutEnded] = React.useState(false);
-    const {isLoading, data} = useFetch(`https://swapi.co/api/people/1`,{
-        depends: [isTimeoutEnded]
+    const [counter, setCounter] = React.useState(false);
+    const {isLoading, data} = useFetch(`http://worldtimeapi.org/api/timezone/Europe/London`,{
+        depends: [counter]
     });
 
     React.useEffect(() => {
-        const timeoutId = setTimeout(() => {
+        const timeoutId = setInterval(() => {
             console.log("setTimeoutEnded: true");
-            setTimeoutEnded(true);
-        }, 5000);
+            setCounter((counter) => counter + 1);
+        }, 500);
         return () => {
             clearTimeout(timeoutId);
         }
@@ -22,9 +22,9 @@ const App = () => {
     console.log(isLoading, data);
 
     return <div>
-        <p>isTimeoutEnded: {isTimeoutEnded && "true" || "false"}</p>
+        <p>counter: {counter}</p>
         <p>isLoading: {isLoading && "true" || "false"}</p>
-        <p>Name: {data && data.name}</p>
+        <p>UTC date time: {data && data.utc_datetime}</p>
     </div>
 };
 
