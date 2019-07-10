@@ -37,7 +37,7 @@
       "ignore": [
         "react"
       ],
-      "limit": "186 B",
+      "limit": "227 B",
       "path": "usePaginatedRequest.js"
     }
   ],
