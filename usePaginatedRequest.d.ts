@@ -5,7 +5,7 @@ declare namespace usePaginatedRequest {
     }) => Promise<Array<T>>
 }
 
-declare function usePaginatedRequest<T>(request: usePaginatedRequest.requestFunction<T>, limit: number): {
+declare function usePaginatedRequest<T>(request: usePaginatedRequest.requestFunction<T>, limit: number, ...depends: Array<any>): {
     data: Array<T>,
     loadMore?: () => any,
     hasMore: boolean,

@@ -2,7 +2,7 @@
 declare function usePaginatedRequest<T>(request: (params: {
   limit: number,
   offset: number,
-}) => Promise<Array<T>>, limit: number): {
+}) => Promise<Array<T>>, limit: number, ...depends: Array<any>): {
   data: Array<T>,
   loadMore?: () => mixed,
   hasMore: boolean,

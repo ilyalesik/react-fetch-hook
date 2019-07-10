@@ -181,7 +181,8 @@ Create a paginated request.
 ```javascript
 usePaginatedRequest = <T>(
     request: (params: { limit: number, offset: number }) => Promise<Array<T>>,
-    limit: number
+    limit: number,
+    ...depends: Array<any>
 ): {
     data: Array<T>,
     loadMore?: () => mixed,
