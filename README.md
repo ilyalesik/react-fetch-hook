@@ -127,33 +127,6 @@ const Component = () => {
 };
 ```
 
-### Paginated requests
-
-```javascript
-import React from "react";
-import usePaginatedRequest from "react-fetch-hook/usePaginatedRequest";
-import fetchSomeData from "..."
-
-const Component = () => {
-    const results = usePaginatedRequest(
-        ({limit, offset}) => fetchSomeData(limit, offset),
-        20
-    );
-
-    return (
-        <InfiniteScroll
-            pageStart={0}
-            loadMore={results.loadMore}
-            hasMore={results.hasMore}
-            loader={<div />}>
-            {results.data && results.data.map((item) => {
-                ...
-            })}
-        </InfiniteScroll>)
-}      
-```
-
-
 
 ## API
 
@@ -201,7 +174,9 @@ type TUsePromiseResult<T> = {
 }
 ```
 
-### `usePaginatedRequest`
+### Experimental: `usePaginatedRequest`
+⚠️ Warning: this method is experimental, API can be changed.
+
 Create a paginated request. 
 ```javascript
 usePaginatedRequest = <T>(
