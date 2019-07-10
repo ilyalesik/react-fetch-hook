@@ -12,11 +12,11 @@ function usePaginatedRequest (
 
   var loadMoreRef = React.useRef(function () {})
 
-  /* React.useEffect(function () {
-        dataState[1]([])
-        offsetState[1](0)
-        hasMoreState[1](true);
-    }, [depends]) */
+  React.useEffect(function () {
+    dataState[1]([])
+    offsetState[1](0)
+    hasMoreState[1](true)
+  }, depends)
 
   React.useEffect(
     function () {
