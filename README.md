@@ -82,6 +82,7 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 });
 
 ```
+See [example](examples/depends).
 
 ### Re-call requests
 If any element of `depends` changed, request will be re-call. For example, you can use [react-use-trigger](https://github.com/ilyalesik/react-use-trigger) for re-call the request:
@@ -127,6 +128,11 @@ const Component = () => {
 };
 ```
 
+## [Examples](examples)
+
+* [Basic](examples/basic) - Just fetch data with `useFetch`.
+* [Depends](examples/depends) - Usage `depends` option for refresh query.
+* [Pagination](examples/pagination) - Usage `usePaginationRequest` for infinite scroll implementation.
 
 ## API
 
