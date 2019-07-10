@@ -2,7 +2,7 @@
 
 ![Pagination example](pagination.gif)
 
-Usage `usePaginationRequest`.
+Usage `usePaginationRequest` for infinite scroll implementation.
 
 Try at CodeSandbox:
 
