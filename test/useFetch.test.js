@@ -26,6 +26,18 @@ describe("useFetch", () => {
         });
     });
 
+    it("isLoading by default", async () => {
+        fetch.mockResponse(JSON.stringify({ data: "12345" }));
+
+        const Component = () => {
+            const result = useFetch("https://google.com");
+            return <div>{result.isLoading && "test"}</div>;
+        };
+
+        const { container, rerender } = render(<Component />);
+        expect(container).toHaveTextContent("test");
+    });
+
     it("call with url and options", async () => {
         fetch.mockResponse(JSON.stringify({ data: "12345" }));
         const options = {

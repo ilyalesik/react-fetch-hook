@@ -7,14 +7,14 @@ function usePromise (
 ) {
   var inputs = Array.prototype.slice.call(arguments, [1])
   var state = React.useState({
-    isLoading: false
+    isLoading: !!callFunction
   })
 
   React.useEffect(function () {
     if (!callFunction) {
       return
     }
-    state[1]({ data: state[0].data, isLoading: true })
+    !state[0].isLoading && state[1]({ data: state[0].data, isLoading: true })
     callFunction.apply(null, inputs)
       .then(function (data) {
         state[1]({
