@@ -11,8 +11,7 @@
     "lint": "eslint '**/*.{js,jsx}' --quiet",
     "run:example:basic": "parcel ./examples/basic/index.html",
     "run:example:depends": "parcel ./examples/depends/index.html",
-    "run:example:pagination": "parcel ./examples/pagination/index.html --no-cache",
-    "prepublish": "npm run flow:check && npm run typescript && npm run lint && npm run size && npm run test"
+    "run:example:pagination": "parcel ./examples/pagination/index.html --no-cache"
   },
   "eslintConfig": {
     "extends": [
