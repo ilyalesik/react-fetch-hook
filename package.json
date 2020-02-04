@@ -31,7 +31,8 @@
         "react"
       ],
       "limit": "397 B",
-      "path": "index.js"
+      "path": "index.js",
+      "running": false
     }
   ],
   "files": [
