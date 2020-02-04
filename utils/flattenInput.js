@@ -6,7 +6,7 @@ function flattenInput () {
       for (var j = 0; j < input.length; j++) {
         res = res.concat(flattenInput(input[j]))
       }
-    } else if (input instanceof URL) {
+    } else if (typeof URL !== 'undefined' && input instanceof URL) {
       res = res.concat(input.toJSON())
     } else if (input instanceof Object) {
       var keys = Object.keys(input)
