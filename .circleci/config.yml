@@ -1,0 +1,117 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.15
+
+jobs:
+  install:
+    <<: *defaults
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+
+  flow:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run Flow
+          command: nmp run flow:check
+
+  test:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run tests
+          command: npm test
+
+  lint:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run linting check
+          command: npm run lint
+
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Build package
+          command: npm run build
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
+
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - install:
+          filters:
+            tags:
+              only: /^v.*/
+      - flow:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /^v.*/
+      - test:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /^v.*/
+      - lint:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          requires:
+            - flow
+            - test
+            - lint
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
