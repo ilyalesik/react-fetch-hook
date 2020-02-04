@@ -42,7 +42,17 @@ jobs:
           at: ~/repo
       - run:
           name: Run Flow
-          command: nmp run flow:check
+          command: npm run flow:check
+
+  typescript:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run TypeScript
+          command: npm run typescript
 
   test:
     <<: *defaults
@@ -63,6 +73,16 @@ jobs:
       - run:
           name: Run linting check
           command: npm run lint
+
+  size:
+    <<: *defaults
+
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Run package size check
+          command: npm run size
 
   deploy:
     <<: *defaults
@@ -105,8 +125,10 @@ workflows:
       - deploy:
           requires:
             - flow
+            - typescript
             - test
             - lint
+            - size
           filters:
             tags:
               only: /^v.*/
