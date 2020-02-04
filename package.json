@@ -47,11 +47,6 @@
     "usePaginatedRequest.js.flow",
     "usePaginatedRequest.d.ts"
   ],
-  "pre-commit": [
-    "lint",
-    "flow:check",
-    "test"
-  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/ilyalesik/react-fetch-hook.git"
