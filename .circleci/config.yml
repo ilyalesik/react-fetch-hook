@@ -110,6 +110,12 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+      - typescript:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /^v.*/
       - test:
           requires:
             - install
@@ -117,6 +123,12 @@ workflows:
             tags:
               only: /^v.*/
       - lint:
+          requires:
+            - install
+          filters:
+            tags:
+              only: /^v.*/
+      - size:
           requires:
             - install
           filters:
