@@ -4,9 +4,9 @@ import useFetch from "../../index";
 
 
 const App = () => {
-    const {isLoading, data} = useFetch(`https://swapi.co/api/people/1`);
+    const {isLoading, data, error} = useFetch(`https://swapi.co/api/people/1`);
 
-    console.log(isLoading, data);
+    console.log(isLoading, data, error && error.status);
 
     return <div>
         <p>isLoading: {isLoading && "true" || "false"}</p>

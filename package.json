@@ -30,7 +30,7 @@
       "ignore": [
         "react"
       ],
-      "limit": "408 B",
+      "limit": "556 B",
       "path": "index.js",
       "running": false
     }
