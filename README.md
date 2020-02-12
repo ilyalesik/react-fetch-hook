@@ -220,6 +220,23 @@ usePaginatedRequest = <T>(
 };
 ```
 
+## Who Uses react-fetch-hook
+
+### Open Source projects
+
+* [react-figma](https://github.com/react-figma/react-figma)
+* [awesome-web-animation](https://github.com/sergey-pimenov/awesome-web-animation)
+* [redux-helpers](https://github.com/lecstor/redux-helpers)
+
+### Companies
+
+* [Redis Agency](https://redis.agency/)
+* [Lessmess Agency](https://lessmess.agency)
+* [BigDatr](https://bigdatr.com/)
+* [Fabrique numérique des Ministères Sociaux](https://incubateur.social.gouv.fr/)
+
+[See more](https://github.com/ilyalesik/react-fetch-hook/network/dependents)
+
 ## Sponsored
 <a href="https://lessmess.agency/?utm_source=react-fetch-hook">
   <img src="https://lessmess.agency/badges/sponsored_by_lessmess.svg"
