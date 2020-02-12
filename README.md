@@ -54,6 +54,30 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 
 ```
 
+### Error handling
+
+The `useFetch` hook returns an `error` field at any fetch exception. 
+The `error` field extends [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+and has `status` and `statusText` fields equal to [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
+
+```javascript
+...
+
+const Component = () => {
+  const { isLoading, data, error } = useFetch("https://swapi.co/api/people/1");
+
+  if (error) {
+    return <div>
+      <p>Code: ${error.status}</p>
+      <p>Message: ${error.statusText}</p>
+    </div>
+  }
+ 
+  ...
+};
+
+```
+ 
 ### Multiple requests
 Multiple `useFetch` in the same file/component supported:
 
