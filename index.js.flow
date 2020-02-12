@@ -3,7 +3,10 @@
 type TUseFetchResult<T> = {
   data: ?T,
   isLoading: boolean,
-  error: mixed,
+  error?: Error & {
+      status: number,
+      statusText: string
+  }
 };
 declare function useFetch<T>(path: RequestInfo, options?: { ...RequestOptions,
   formatter?: (Response) => Promise<T>,

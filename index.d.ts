@@ -1,9 +1,14 @@
 
 declare namespace useFetch {
+    export interface UseFetchError extends Error {
+        status: number,
+        statusText: string
+    }
+
     export interface FetchResult<T> {
         data?: T,
         isLoading: boolean,
-        error?: any
+        error?: UseFetchError
     }
 
     export interface HookOptions extends RequestInit {
