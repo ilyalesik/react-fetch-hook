@@ -102,7 +102,7 @@ The request will not be called until all elements of `depends` array be truthy. 
 const {authToken} = useContext(authTokenContext);
 const [someState, setSomeState] = useState(false);
 const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
-    depends: [!!authToken, someState] //don't call request, if haven't authToken and someState: false
+    depends: [!!authToken, someState] // don't call request, if haven't authToken OR someState: false
 });
 
 ```
