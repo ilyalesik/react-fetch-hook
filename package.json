@@ -1,6 +1,6 @@
 {
   "name": "react-fetch-hook",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "React fetch hook",
   "scripts": {
     "flow": "flow",
