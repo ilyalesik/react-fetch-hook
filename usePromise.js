@@ -14,20 +14,32 @@ function usePromise (
     if (!callFunction) {
       return
     }
+    
+    var isMounted = true;
+    function unMount () {
+      isMounted = false;
+    }
+    
     !state[0].isLoading && state[1]({ data: state[0].data, isLoading: true })
     callFunction.apply(null, inputs)
       .then(function (data) {
-        state[1]({
-          data: data,
-          isLoading: false
-        })
+        if (isMounted) {
+          state[1]({
+            data: data,
+            isLoading: false
+          })
+        }
       })
       .catch(function (error) {
-        state[1]({
-          error: error,
-          isLoading: false
-        })
+        if (isMounted) {
+          state[1]({
+            error: error,
+            isLoading: false
+          })
+        }
       })
+    
+    return unMount;
   }, flattenInput(inputs))
 
   return state[0]
