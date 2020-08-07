@@ -227,6 +227,7 @@ usePaginatedRequest = <T>(
 * [react-figma](https://github.com/react-figma/react-figma)
 * [awesome-web-animation](https://github.com/sergey-pimenov/awesome-web-animation)
 * [redux-helpers](https://github.com/lecstor/redux-helpers)
+* [flowmap.blue](https://github.com/FlowmapBlue/flowmap.blue)
 
 ### Companies
 
