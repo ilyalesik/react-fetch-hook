@@ -1,6 +1,8 @@
 {
   "name": "react-fetch-hook",
   "version": "1.8.4",
+  "main": "index.js",
+  "types": "index.d.ts",
   "description": "React fetch hook",
   "scripts": {
     "flow": "flow",
