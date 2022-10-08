@@ -35,8 +35,8 @@ function useFetch(path, options, specialOptions) {
     !blocked &&
       function (p, o, s) {
         return fetch(p, o).then(
-          (s && s?.formatter) ||
-            (o && o?.formatter) ||
+          (s && s.formatter) ||
+            (o && o.formatter) ||
             function (response) {
               if (!response.ok) {
                 throw new UseFetchError(
