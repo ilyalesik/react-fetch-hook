@@ -11,11 +11,8 @@ const App = () => {
   const { isLoading, data, error } = useFetch(fetchUrl);
 
   const onSubmit = (event) => {
-    console.log("Submitting...");
     useFetchUrl(event.target.url.value)
-
     event.preventDefault(); // 👈️ prevent page refresh
-    console.log(isLoading, data, error && error.status);
     // 👇️ clear all input values in the form
     useUrl("");
   };

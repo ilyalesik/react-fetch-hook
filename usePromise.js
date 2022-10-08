@@ -5,24 +5,17 @@ var flattenInput = require("./utils/flattenInput");
 /**
  * Hook that uses the callFunction to return state
  * @param {()=>{}} callFunction , return fetch function, depends on formatter boolean option
- * @returns {Object} {data, isLoading, error}
- *
- *  abort = ()=>{controller.abort()}
- *  abort();
+ * @returns {Object} {data, isLoading, error, abort}
  */
 function usePromise(callFunction) {
   var inputs = Array.prototype.slice.call(arguments, [1]); // options
+  
   //if abort option is activated
   let controller;
   if (inputs[1].abortController) {
     controller = new AbortController();
-    // save reference class: signal = controller.signal
     inputs[1].signal = controller.signal;
   }
-  // Check if exist abort controller (options or special)
-  //if ((o && o?.abortController) || (s && s?.abortController)) {
-  // Init AbortController Class: controller = new AbortController();
-
   const abortFn = () => (controller ? controller.abort() : null);
 
   var state = React.useState({
