@@ -16,7 +16,7 @@ const App = () => {
     useFetchUrl(event.target.url.value);
 
     event.preventDefault(); // 👈️ prevent page refresh
-    console.log(isLoading, data, error && error.status);
+    console.log(abort);
     // 👇️ clear all input values in the form
     useUrl("");
   };

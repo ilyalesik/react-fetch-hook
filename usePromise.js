@@ -11,19 +11,20 @@ var flattenInput = require("./utils/flattenInput");
  *  abort();
  */
 function usePromise(callFunction) {
-  var inputs = Array.prototype.slice.call(arguments, [1]); // optiones
+  var inputs = Array.prototype.slice.call(arguments, [1]); // optioness
   //if abort option is activated
   let controller;
-  if (inputs.abortController) {
+  if (inputs[1].abortController) {
     controller = new AbortController();
     // save reference class: signal = controller.signal
-    inputs[signal] = controller.signal;
+    inputs[1].signal = controller.signal;
+    console.log(inputs, 'hola∫');
   }
   // Check if exist abort controller (options or special)
   //if ((o && o?.abortController) || (s && s?.abortController)) {
   // Init AbortController Class: controller = new AbortController();
 
-  const abortFn = () => (controller ? controller.abort() : null);
+  const abortFn = () => controller.abort();
 
   var state = React.useState({
     isLoading: !!callFunction,
