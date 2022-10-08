@@ -6,22 +6,31 @@ const App = () => {
   const [url, useUrl] = useState();
   const defaultUrl = "https://swapi.dev/api/people/1";
 
-  const onClick = (e) => {
+  const onSubmit = (event) => {
+    console.log("Submitting...");
+    event.preventDefault(); // 👈️ prevent page refresh
+    useUrl(values);
     const { isLoading, data, error } = useFetch(url);
+
+    console.log(isLoading, data, error && error.status);
+
+    // 👇️ clear all input values in the form
+    useUrl("");
   };
-
-  const onSubmit = () => {};
-
-  console.log(isLoading, data, error && error.status);
 
   return (
     <div>
       <form onSubmit={onSubmit}>
+        <label for="url">URL to fetch:</label>
         <input
-          id="url_input"
+          id="url"
+          type="text"
+          name="url"
           defaultValue={defaultUrl}
+          onChange={(event) => useUrl(event.target.value)}
           placeholder={"Url to fetch"}
-        ></input>
+          value={url}
+        />
         <button type="submit" onClick={onClick}>
           Fecth Url
         </button>
