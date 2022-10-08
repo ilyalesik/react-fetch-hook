@@ -1,6 +1,6 @@
 # Basic
 
-![Basic example](basic.gif)
+![Abort example](basic.gif)
 
 Just fetch data with `useFetch`.
 

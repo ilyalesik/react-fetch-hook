@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import useFetch from "../../index";
 
 const App = () => {
-
   const defaultUrl = "https://swapi.dev/api/people/1";
   const [url, useUrl] = useState(defaultUrl);
-  const[fetchUrl, useFetchUrl] = useState(defaultUrl);
+  const [fetchUrl, useFetchUrl] = useState(defaultUrl);
 
   const { isLoading, data, error } = useFetch(fetchUrl);
 
   const onSubmit = (event) => {
-    useFetchUrl(event.target.url.value)
+    useFetchUrl(event.target.url.value);
     event.preventDefault(); // 👈️ prevent page refresh
     // 👇️ clear all input values in the form
     useUrl("");
   };
-
 
   return (
     <div>
@@ -30,12 +28,10 @@ const App = () => {
           placeholder={"Url to fetch"}
           value={url}
         />
-        <button type="submit" >
-          Fecth Url
-        </button>
+        <button type="submit">Fecth Url</button>
       </form>
-     <p>isLoading: {(isLoading && "true") || "false"}</p>
-      <p>Name: {data && data.name}</p> 
+      <p>isLoading: {(isLoading && "true") || "false"}</p>
+      <p>Name: {data && data.name}</p>
     </div>
   );
 };

@@ -9,13 +9,17 @@ var flattenInput = require("./utils/flattenInput");
  */
 function usePromise(callFunction) {
   var inputs = Array.prototype.slice.call(arguments, [1]); // options
-  
-  //if abort option is activated
+
   let controller;
   if (inputs[1].abortController) {
     controller = new AbortController();
     inputs[1].signal = controller.signal;
   }
+  /**
+   * if abortController is setted, returns the Function to abort
+   * the fetch if not returns null
+   * @returns {()=>{}}
+   */
   const abortFn = () => (controller ? controller.abort() : null);
 
   var state = React.useState({
