@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import useFetch from "../../index";
 
@@ -16,7 +16,6 @@ const App = () => {
     useFetchUrl(event.target.url.value);
 
     event.preventDefault(); // 👈️ prevent page refresh
-    console.log(abort);
     // 👇️ clear all input values in the form
     useUrl("");
   };
