@@ -4,6 +4,7 @@ declare namespace usePromise {
         data?: T,
         isLoading: boolean,
         error: any,
+        abort: any
     };
 }
 
