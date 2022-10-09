@@ -6,7 +6,7 @@ type TUseFetchResult<T> = {
   error?: Error & {
       status: number,
       statusText: string
-  }
+  },
   abort: any
 };
 
