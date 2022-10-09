@@ -8,7 +8,8 @@ declare namespace useFetch {
     export interface FetchResult<T> {
         data?: T,
         isLoading: boolean,
-        error?: UseFetchError
+        error?: UseFetchError,
+        abort?: any
     }
 
     export interface HookOptions extends RequestInit {

@@ -6,8 +6,10 @@ type TUseFetchResult<T> = {
   error?: Error & {
       status: number,
       statusText: string
-  }
+  },
+  abort: any
 };
+
 declare function useFetch<T>(path: RequestInfo, options?: { ...RequestOptions,
   formatter?: (Response) => Promise<T>,
   depends?: Array<mixed>,

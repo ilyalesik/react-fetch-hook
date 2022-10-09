@@ -56,7 +56,7 @@ const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
 
 ### Error handling
 
-The `useFetch` hook returns an `error` field at any fetch exception. 
+The `useFetch` hook returns an `error` field at any fetch exception.
 The `error` field extends [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
 and has `status` and `statusText` fields equal to [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 
@@ -72,12 +72,63 @@ const Component = () => {
       <p>Message: ${error.statusText}</p>
     </div>
   }
- 
+
   ...
 };
 
 ```
- 
+
+### Abort request
+
+The `useFetch` hook returns an `abort()` function that can be implemented whenever you need to cancel the request.
+You can pass custom option: `{abortController: true}` to use this funcionality.
+ `abort` implements the Abort Controller Interface [AbortController](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
+ You can see it in codesandbox-> [Code](https://codesandbox.io/s/react-fetch-hook-basic-forked-zb820v)
+
+```javascript
+...
+
+const Component = () => {
+
+  const defaultUrl = "https://swapi.dev/api/people/1";
+  const [url, useUrl] = useState(defaultUrl);
+  const [fetchUrl, useFetchUrl] = useState(defaultUrl);
+
+
+ const { isLoading, data, abort } = useFetch(fetchUrl, {
+    abortController: true,
+  });
+
+  const handleOnClick = (event) => {
+    event.preventDefault();
+    console.log("Fetching...");
+    useFetchUrl(url);
+  };
+
+  return (
+    <div>
+      <input
+        id="url"
+        type="text"
+        name="url"
+        onChange={(event) => useUrl(event.target.value)}
+        placeholder={"Url to fetch"}
+        value={url}
+      />
+      <button onClick={handleOnClick}>Fecth Url</button>
+      <button onClick={() => abort()}>Abort</button>
+      <p>isLoading: {(isLoading && "true") || "false"}</p>
+      <p>Name: {data && data.name}</p>
+    </div>
+  );
+
+
+
+};
+...
+
+```
+
 ### Multiple requests
 Multiple `useFetch` in the same file/component supported:
 
@@ -87,7 +138,7 @@ const result2 = useFetch("https://swapi.co/api/people/2");
 
 if (result1.isLoading && result2.isLoading) {
   return <div>Loading...</div>;
-}  
+}
 
 return <div>
     <UserProfile {...result1.data} />
@@ -116,17 +167,17 @@ import useTrigger from "react-use-trigger/useTrigger";
 
 const requestTrigger = createTrigger();
 
-export const Subscriber = () => {  
+export const Subscriber = () => {
     const requestTriggerValue = useTrigger(requestTrigger);
-    
+
     const { isLoading, data } = useFetch("https://swapi.co/api/people/1", {
         depends: [requestTriggerValue]
     });
-  
+
     return <div />;
 }
 
-export const Sender = () => { 
+export const Sender = () => {
     return <button onClick={() => {
         requestTrigger() // re-call request
     }}>Send</button>
@@ -157,11 +208,12 @@ const Component = () => {
 * [Basic](examples/basic) - Just fetch data with `useFetch`.
 * [Depends](examples/depends) - Usage `depends` option for refresh query.
 * [Pagination](examples/pagination) - Usage `usePaginationRequest` for infinite scroll implementation.
+* [Abort](examples/abort) - Usage `abortController:true` for aborting promises .
 
 ## API
 
 ### `useFetch`
-Create a hook wrapper for `fetch` call. 
+Create a hook wrapper for `fetch` call.
 ```javascript
 useFetch(
     path: RequestInfo,
@@ -169,6 +221,7 @@ useFetch(
         ...RequestOptions,
         formatter?: Response => Promise
         depends?: Array<boolean>
+        abortController: Boolean
     },
     specialOptions?: {
         formatter?: Response => Promise
@@ -182,6 +235,7 @@ where `TUseFetchResult` is:
     data: any,
     isLoading: boolean,
     error: any
+    abort: any,
 }
 ```
 
@@ -201,13 +255,14 @@ type TUsePromiseResult<T> = {
     data: ?T,
     isLoading: boolean,
     error: mixed
+    abort: mixed
 }
 ```
 
 ### Experimental: `usePaginatedRequest`
 ⚠️ Warning: this method is experimental, API can be changed.
 
-Create a paginated request. 
+Create a paginated request.
 ```javascript
 usePaginatedRequest = <T>(
     request: (params: { limit: number, offset: number }) => Promise<Array<T>>,

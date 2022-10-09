@@ -13,7 +13,8 @@
     "lint": "eslint '**/*.{js,jsx}' --quiet",
     "run:example:basic": "parcel ./examples/basic/index.html",
     "run:example:depends": "parcel ./examples/depends/index.html",
-    "run:example:pagination": "parcel ./examples/pagination/index.html --no-cache"
+    "run:example:pagination": "parcel ./examples/pagination/index.html --no-cache",
+    "run:example:abort": "parcel ./examples/abort/index.html"
   },
   "eslintConfig": {
     "extends": [
@@ -32,7 +33,7 @@
       "ignore": [
         "react"
       ],
-      "limit": "556 B",
+      "limit": "617 B",
       "path": "index.js",
       "running": false
     }

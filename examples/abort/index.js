@@ -7,13 +7,14 @@ const App = () => {
   const [url, useUrl] = useState(defaultUrl);
   const [fetchUrl, useFetchUrl] = useState(defaultUrl);
 
-  const { isLoading, data, error } = useFetch(fetchUrl);
+  const { isLoading, data, abort } = useFetch(fetchUrl, {
+    abortController: true,
+  });
 
   const handleOnClick = (event) => {
-    useFetchUrl(event.target.url.value);
-    event.preventDefault(); // 👈️ prevent page refresh
-    // 👇️ clear all input values in the form
-    useUrl("");
+    event.preventDefault();
+    console.log("Fetching...");
+    useFetchUrl(url);
   };
 
   return (
@@ -27,7 +28,7 @@ const App = () => {
         value={url}
       />
       <button onClick={handleOnClick}>Fecth Url</button>
-
+      <button onClick={() => abort()}>Abort</button>
       <p>isLoading: {(isLoading && "true") || "false"}</p>
       <p>Name: {data && data.name}</p>
     </div>
