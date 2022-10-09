@@ -9,7 +9,7 @@ const App = () => {
 
   const { isLoading, data, error } = useFetch(fetchUrl);
 
-  const onSubmit = (event) => {
+  const handleOnClick = (event) => {
     useFetchUrl(event.target.url.value);
     event.preventDefault(); // 👈️ prevent page refresh
     // 👇️ clear all input values in the form
@@ -18,18 +18,16 @@ const App = () => {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="url">URL to fetch:</label>
-        <input
-          id="url"
-          type="text"
-          name="url"
-          onChange={(event) => useUrl(event.target.value)}
-          placeholder={"Url to fetch"}
-          value={url}
-        />
-        <button type="submit">Fecth Url</button>
-      </form>
+      <input
+        id="url"
+        type="text"
+        name="url"
+        onChange={(event) => useUrl(event.target.value)}
+        placeholder={"Url to fetch"}
+        value={url}
+      />
+      <button onClick={handleOnClick}>Fecth Url</button>
+
       <p>isLoading: {(isLoading && "true") || "false"}</p>
       <p>Name: {data && data.name}</p>
     </div>

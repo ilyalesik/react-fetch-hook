@@ -11,26 +11,23 @@ const App = () => {
     abortController: true,
   });
 
-  const onSubmit = (event) => {
+  const handleOnClick = (event) => {
     event.preventDefault();
-    console.log("Submitting...");
+    console.log("Fetching...");
     useFetchUrl(url);
   };
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="url">URL to fetch:</label>
-        <input
-          id="url"
-          type="text"
-          name="url"
-          onChange={(event) => useUrl(event.target.value)}
-          placeholder={"Url to fetch"}
-          value={url}
-        />
-        <button type="submit">Fecth Url</button>
-      </form>
+      <input
+        id="url"
+        type="text"
+        name="url"
+        onChange={(event) => useUrl(event.target.value)}
+        placeholder={"Url to fetch"}
+        value={url}
+      />
+      <button onClick={handleOnClick}>Fecth Url</button>
       <button onClick={() => abort()}>Abort</button>
       <p>isLoading: {(isLoading && "true") || "false"}</p>
       <p>Name: {data && data.name}</p>
